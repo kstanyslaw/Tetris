@@ -6,16 +6,15 @@ namespace Tetris
     internal class Brick : Figure
     {
         private Form f;
-        private int x;
-        private int y;
+        private Point BrickPoint;   // Contain brick coordinates & symvol
 
-        public Brick(int x, int y, Form f)
+        public Brick(Point p, Form f)
         {
-            this.x = x;
-            this.y = y;
+            this.BrickPoint = p;
             this.f = f;
             pList = new List<Point>();
-            SetBrick();            
+            SetBrick();
+            Draw();         
         }
 
         public enum Form
@@ -31,34 +30,34 @@ namespace Tetris
 
         private void I()
         {
-
+            BrickPoint.x = BrickPoint.x - 1;
             for (int i = 0; i < 4; i++)
             {
-                Point p = new Point(x, y + i, '█', System.ConsoleColor.Cyan);
+                Point p = new Point(BrickPoint.x+1, BrickPoint.y + i, BrickPoint.sym, ConsoleColor.Cyan);
                 pList.Add(p);
             }
         }
 
         private void J()
         {
-            Point p = new Point(x, y + 2, '█', System.ConsoleColor.Blue);
+            Point p = new Point(BrickPoint.x, BrickPoint.y + 2, BrickPoint.sym, ConsoleColor.Blue);
             pList.Add(p);
 
             for (int i = 0; i < 3; i++)
             {
-                p = new Point(x + 1, y + i, '█', System.ConsoleColor.Blue);
+                p = new Point(BrickPoint.x + 1, BrickPoint.y + i, BrickPoint.sym, ConsoleColor.Blue);
                 pList.Add(p);
             }
         }
 
         private void L()
         {
-            Point p = new Point(x + 1, y + 2, '█', System.ConsoleColor.Gray);
+            Point p = new Point(BrickPoint.x + 1, BrickPoint.y + 2, BrickPoint.sym, ConsoleColor.Gray);
             pList.Add(p);
 
             for (int i = 0; i < 3; i++)
             {
-                p = new Point(x , y + i, '█', System.ConsoleColor.Gray);
+                p = new Point(BrickPoint.x , BrickPoint.y + i, BrickPoint.sym, ConsoleColor.Gray);
                 pList.Add(p);
             }
         }
@@ -67,31 +66,32 @@ namespace Tetris
         {
             for (int i = 0; i < 2; i++)
             {
-                Point p = new Point(x, y + i, '█', System.ConsoleColor.Yellow);
+                Point p = new Point(BrickPoint.x, BrickPoint.y + i, BrickPoint.sym, ConsoleColor.Yellow);
                 pList.Add(p);
-                p = new Point(x + 1, y + i, '█', System.ConsoleColor.Yellow);
+                p = new Point(BrickPoint.x + 1, BrickPoint.y + i, BrickPoint.sym, ConsoleColor.Yellow);
                 pList.Add(p);
             }
         }
 
         private void S()
+
         {
             for (int i = 0; i < 2; i++)
             {
-                Point p = new Point(x + 1 - i, y + i, '█', System.ConsoleColor.Red);
+                Point p = new Point(BrickPoint.x + 1 - i, BrickPoint.y + i, BrickPoint.sym, ConsoleColor.Green);
                 pList.Add(p);
-                p = new Point(x + 2 - i, y + i, '█', System.ConsoleColor.Red);
+                p = new Point(BrickPoint.x + 2 - i, BrickPoint.y + i, BrickPoint.sym, ConsoleColor.Green);
                 pList.Add(p);
             }
         }
 
         private void T()
         {
-            Point p = new Point(x + 1, y, '█', System.ConsoleColor.Magenta);
+            Point p = new Point(BrickPoint.x + 1, BrickPoint.y, BrickPoint.sym, ConsoleColor.Magenta);
             pList.Add(p);
             for(int i = 0; i < 3; i++)
             {
-                p = new Point(x + i, y + 1, '█', System.ConsoleColor.Magenta);
+                p = new Point(BrickPoint.x + i, BrickPoint.y + 1, BrickPoint.sym, ConsoleColor.Magenta);
                 pList.Add(p);
             }
         }
@@ -100,9 +100,9 @@ namespace Tetris
         {
             for (int i = 0; i < 2; i++)
             {
-                Point p = new Point(x + i, y + i, '█', System.ConsoleColor.Red);
+                Point p = new Point(BrickPoint.x + i, BrickPoint.y + i, BrickPoint.sym, ConsoleColor.Red);
                 pList.Add(p);
-                p = new Point(x + 1 + i, y + i, '█', System.ConsoleColor.Red);
+                p = new Point(BrickPoint.x + 1 + i, BrickPoint.y + i, BrickPoint.sym, ConsoleColor.Red);
                 pList.Add(p);
             }
         }
@@ -137,6 +137,29 @@ namespace Tetris
             {
                 Z();
             }
+        }
+
+        public void Move(Direction direction)
+        {
+            foreach (Point p in pList)
+            {
+                p.Clear();
+                p.Move(1, direction);
+            }
+            BrickPoint.Move(1, direction);
+            Draw();
+        }
+
+        public void Rotate() // Works good only with I S O Z
+        {
+            foreach(Point p in pList)
+            {
+                p.Clear();
+                p.x = p.x - BrickPoint.x + p.y - BrickPoint.y;
+                p.y = p.x - (p.y - BrickPoint.y) + BrickPoint.y;
+                p.x = p.x - (p.y - BrickPoint.y) + BrickPoint.x; 
+            }
+            Draw();
         }
     }
 }

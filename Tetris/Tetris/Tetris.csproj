@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Brick.cs" />
+    <Compile Include="Direction.cs" />
     <Compile Include="Figure.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Point.cs" />

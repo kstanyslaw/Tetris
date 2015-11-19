@@ -11,6 +11,7 @@ namespace Tetris
         static void Main(string[] args)
         {
             Game.CreatePlayground();
+            Game.SandBox();
             Console.Read();
         }
     }
