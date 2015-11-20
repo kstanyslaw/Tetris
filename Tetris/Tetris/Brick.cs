@@ -14,7 +14,8 @@ namespace Tetris
             this.f = f;
             pList = new List<Point>();
             SetBrick();
-            Draw();         
+            Draw();        
+             
         }
 
         public enum Form
@@ -161,5 +162,6 @@ namespace Tetris
             }
             Draw();
         }
+
     }
 }

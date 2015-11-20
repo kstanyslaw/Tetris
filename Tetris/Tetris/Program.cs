@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tetris
 {
@@ -11,7 +7,7 @@ namespace Tetris
         static void Main(string[] args)
         {
             Game.CreatePlayground();
-            Game.SandBox();
+            Game.Play();
             Console.Read();
         }
     }
