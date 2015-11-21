@@ -142,7 +142,7 @@ namespace Tetris
 
         public void Move(Direction direction)
         {
-            if (IsHit(direction, Game.walls) != true)
+            if (IsHit(direction, Game.walls) != true && IsHit(direction, Game.body) != true)
             {
                 foreach (Point p in pList)
                 {

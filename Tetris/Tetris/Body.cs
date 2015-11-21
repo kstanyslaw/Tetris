@@ -8,6 +8,11 @@ namespace Tetris
 {
     class Body : Figure
     {
+        public Body()
+        {
+            pList = new List<Point>();
+        }
+
         public void RemoveLine()
         {
             for (int y = Game.yTop + 1; y < Game.yBottom; y++)
@@ -48,6 +53,14 @@ namespace Tetris
                         pList.Remove(p);
                     }
                 }
+            }
+        }
+
+        public void AddBrick(Figure brick)
+        {
+            foreach(Point p in brick.pList)
+            {
+                pList.Add(p);
             }
         }
     }

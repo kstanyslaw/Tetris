@@ -6,7 +6,7 @@ namespace Tetris
     internal class Game
     {
         private static Direction direction;
-        private static Brick brick;
+        public static Brick brick;
         private static int timeout = 500;
 
         // Walls Variables
@@ -16,6 +16,8 @@ namespace Tetris
         public static int yBottom = 23;
         private static ConsoleColor wallColor = ConsoleColor.DarkBlue;
         public static Walls walls = new Walls(xLeft, xRight, yTop, yBottom, wallColor);
+        //Create Body
+        public static Body body = new Body();
 
         internal static void CreatePlayground()
         {
@@ -26,8 +28,10 @@ namespace Tetris
             //Create Walls
             walls.Draw();
 
+            
+
             //SandBox
-            brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), Brick.Form.I);
+            brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), Brick.Form.T);
         }
 
         internal static void Play()
@@ -35,6 +39,17 @@ namespace Tetris
             while(true)
             {
                 Handle();
+                Rule();
+            }
+        }
+
+        internal static void Rule()
+        {
+            if(brick.IsHit(Direction.Down, walls) || brick.IsHit(Direction.Down, body))
+            {
+                body.AddBrick(brick);
+                brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), Brick.Form.I);
+                body.RemoveLine();
             }
         }
 
