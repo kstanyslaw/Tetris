@@ -142,13 +142,16 @@ namespace Tetris
 
         public void Move(Direction direction)
         {
-            foreach (Point p in pList)
+            if (IsHit(direction, Game.walls) != true)
             {
-                p.Clear();
-                p.Move(1, direction);
+                foreach (Point p in pList)
+                {
+                    p.Clear();
+                    p.Move(1, direction);
+                }
+                BrickPoint.Move(1, direction);
+                Draw();
             }
-            BrickPoint.Move(1, direction);
-            Draw();
         }
 
         public void Rotate() // Works good only with I S O Z
@@ -163,5 +166,28 @@ namespace Tetris
             Draw();
         }
 
+        public bool IsHit(Direction direction, Figure figure)
+        {
+            bool result = false;
+            foreach (Point point in figure.pList)
+            {
+                foreach(Point p in pList)
+                {
+                    Point p1 = GetNextPoint(p, direction);
+                    if(p1.x == point.x && p1.y == point.y && result != true)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            return result;
+        }
+
+        private Point GetNextPoint(Point p, Direction direction)
+        {
+            Point nextPoint = new Point(p.x, p.y, p.sym, ConsoleColor.Black);
+            nextPoint.Move(1, direction);
+            return nextPoint;
+        }
     }
 }

@@ -14,17 +14,16 @@ namespace Tetris
         public static int xRight = 40;
         public static int yTop = 1;
         public static int yBottom = 23;
+        private static ConsoleColor wallColor = ConsoleColor.DarkBlue;
+        public static Walls walls = new Walls(xLeft, xRight, yTop, yBottom, wallColor);
 
         internal static void CreatePlayground()
         {
-            ConsoleColor wallColor = ConsoleColor.DarkBlue;
-
             // Set Console Window View
             Console.SetBufferSize(80, 25);  //Size
             Console.CursorVisible = false;  //Invisible Cursor
 
             //Create Walls
-            Walls walls = new Walls(xLeft, xRight, yTop, yBottom, wallColor);
             walls.Draw();
 
             //SandBox
@@ -36,7 +35,6 @@ namespace Tetris
             while(true)
             {
                 Handle();
-                Step();
             }
         }
 

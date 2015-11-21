@@ -9,7 +9,7 @@ namespace Tetris
 
     class Figure
     {
-        protected List<Point> pList;
+        internal List<Point> pList;
 
         public void Draw()
         {
