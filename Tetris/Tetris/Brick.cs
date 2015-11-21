@@ -154,6 +154,15 @@ namespace Tetris
             }
         }
 
+        internal void DropDown()
+        {
+            Direction direction = Direction.Down;
+            while(IsHit(direction, Game.walls) != true || IsHit(direction, Game.body) != true)
+            {
+                Move(direction);
+            }
+        }
+
         public void Rotate() // Works good only with I S O Z
         {
             foreach(Point p in pList)

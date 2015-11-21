@@ -19,6 +19,8 @@ namespace Tetris
         //Create Body
         public static Body body = new Body();
 
+        private static bool On = true;
+
         internal static void CreatePlayground()
         {
             // Set Console Window View
@@ -36,6 +38,7 @@ namespace Tetris
 
         internal static void Play()
         {
+            DropBrick();
             while(true)
             {
                 Handle();
@@ -45,11 +48,10 @@ namespace Tetris
 
         internal static void Rule()
         {
-            if(brick.IsHit(Direction.Down, walls) || brick.IsHit(Direction.Down, body))
+            if(brick.IsHit(Direction.Down, walls) == true || brick.IsHit(Direction.Down, body) == true)
             {
                 body.AddBrick(brick);
                 brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), Brick.Form.I);
-                body.RemoveLine();
             }
         }
 
@@ -80,6 +82,10 @@ namespace Tetris
                     direction = Direction.Down;
                     brick.Move(direction);
                 }
+                else if (key.Key == ConsoleKey.Spacebar)
+                {
+                    brick.DropDown();
+                }
             }
         }
 
@@ -87,6 +93,20 @@ namespace Tetris
         {
             brick.Move(Direction.Down);
             Thread.Sleep(timeout);
+        }
+
+        private static void Steps()
+        {
+            while(On)
+            {
+                Step();
+            }
+        }
+
+        private static void DropBrick()
+        {
+            Thread thread = new Thread(Steps);
+            thread.Start();
         }
     }
 }
