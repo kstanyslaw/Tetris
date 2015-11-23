@@ -51,6 +51,7 @@ namespace Tetris
             if(brick.IsHit(Direction.Down, walls) == true || brick.IsHit(Direction.Down, body) == true)
             {
                 body.AddBrick(brick);
+                body.Draw();
                 brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), Brick.Form.I);
             }
         }
@@ -106,7 +107,13 @@ namespace Tetris
         private static void DropBrick()
         {
             Thread thread = new Thread(Steps);
+            thread.IsBackground = false;
             thread.Start();
+        }
+
+        private void RandomBrick()
+        {
+
         }
     }
 }
