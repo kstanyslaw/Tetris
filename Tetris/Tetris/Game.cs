@@ -8,6 +8,7 @@ namespace Tetris
         private static Direction direction;
         public static Brick brick;
         private static int timeout = 500;
+        private static Random random = new Random();
 
         // Walls Variables
         public static int xLeft = 10;
@@ -33,7 +34,7 @@ namespace Tetris
             
 
             //SandBox
-            brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), Brick.Form.T);
+            brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), RandomBrick());
         }
 
         internal static void Play()
@@ -52,7 +53,7 @@ namespace Tetris
             {
                 body.AddBrick(brick);
                 body.Draw();
-                brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), Brick.Form.I);
+                brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), RandomBrick());
             }
         }
 
@@ -111,9 +112,11 @@ namespace Tetris
             thread.Start();
         }
 
-        private void RandomBrick()
+        private static Brick.Form RandomBrick()
         {
-
+            Brick.Form brickForm = new Brick.Form();
+            brickForm = (Brick.Form)random.Next(0, 6);
+            return brickForm;
         }
     }
 }
