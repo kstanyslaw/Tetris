@@ -165,12 +165,25 @@ namespace Tetris
 
         public void Rotate() // Works good only with I S O Z
         {
-            foreach(Point p in pList)
+            if (f == Form.I || f == Form.S || f == Form.O || f == Form.Z)
             {
-                p.Clear();
-                p.x = p.x - BrickPoint.x + p.y - BrickPoint.y;
-                p.y = p.x - (p.y - BrickPoint.y) + BrickPoint.y;
-                p.x = p.x - (p.y - BrickPoint.y) + BrickPoint.x; 
+                foreach (Point p in pList)
+                {
+                    p.Clear();
+                    p.x = p.x - BrickPoint.x + p.y - BrickPoint.y;
+                    p.y = p.x - (p.y - BrickPoint.y) + BrickPoint.y;
+                    p.x = p.x - (p.y - BrickPoint.y) + BrickPoint.x;
+                }
+                if (IsHit(Direction.Left, Game.walls) == true)
+                {
+                    Move(Direction.Right);
+                    Game.walls.Draw();
+                }
+                if (IsHit(Direction.Right, Game.walls) == true)
+                {
+                    Move(Direction.Left);
+                    Game.walls.Draw();
+                }
             }
             Draw();
         }

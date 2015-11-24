@@ -84,10 +84,14 @@ namespace Tetris
                     direction = Direction.Down;
                     brick.Move(direction);
                 }
-                else if (key.Key == ConsoleKey.Spacebar)
+                else if(key.Key == ConsoleKey.UpArrow)
                 {
-                    brick.DropDown();
+                    brick.Rotate();
                 }
+                //else if (key.Key == ConsoleKey.Spacebar)
+                //{
+                //    brick.DropDown();
+                //}
             }
         }
 
