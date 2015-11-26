@@ -21,6 +21,8 @@ namespace Tetris
         public static Body body = new Body();
 
         private static bool On = true;
+        private static Brick.Form nextBrickForm = new Brick.Form();
+        private static Brick nextBrick;
 
         internal static void CreatePlayground()
         {
@@ -35,6 +37,9 @@ namespace Tetris
 
             //SandBox
             brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), RandomBrick());
+            nextBrickForm = RandomBrick();
+            Point preview = new Point(75, 5, '█', ConsoleColor.Black);
+            nextBrick = new Brick(preview, nextBrickForm);
         }
 
         internal static void Play()
@@ -53,7 +58,8 @@ namespace Tetris
             {
                 body.AddBrick(brick);
                 body.Draw();
-                brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), RandomBrick());
+                brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), nextBrickForm);
+                nextBrickForm = RandomBrick();
             }
         }
 
