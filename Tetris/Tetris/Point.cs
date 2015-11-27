@@ -39,6 +39,10 @@ namespace Tetris
             {
                 y = y + offset;
             }
+            else if (direction == Direction.Down)
+            {
+                y = y - offset;
+            }
         }
 
         internal void Clear()

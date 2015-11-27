@@ -45,7 +45,7 @@ namespace Tetris
         internal static void Play()
         {
             DropBrick();
-            while(true)
+            while(On == true)
             {
                 Handle();
                 Rule();
@@ -60,6 +60,10 @@ namespace Tetris
                 body.Draw();
                 brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), nextBrickForm);
                 nextBrickForm = RandomBrick();
+            }
+            if(body.IsHit(Direction.Up, walls) == true)
+            {
+                On = false;
             }
         }
 
@@ -94,10 +98,10 @@ namespace Tetris
                 {
                     brick.Rotate();
                 }
-                //else if (key.Key == ConsoleKey.Spacebar)
-                //{
-                //    brick.DropDown();
-                //}
+                else if (key.Key == ConsoleKey.Spacebar)
+                {
+                    brick.DropDown();
+                }
             }
         }
 
@@ -109,7 +113,7 @@ namespace Tetris
 
         private static void Steps()
         {
-            while(On)
+            while(On == true)
             {
                 Step();
             }
