@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tetris
 {
@@ -41,6 +38,12 @@ namespace Tetris
             Point nextPoint = new Point(p.x, p.y, p.sym, ConsoleColor.Black);
             nextPoint.Move(1, direction);
             return nextPoint;
+        }
+
+        internal void Clear()
+        {
+            foreach (Point p in pList)
+                p.Clear();
         }
     }
 }

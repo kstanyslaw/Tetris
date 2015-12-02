@@ -23,6 +23,8 @@ namespace Tetris
         private static bool On = true;
         private static Brick.Form nextBrickForm = new Brick.Form();
         private static Brick nextBrick;
+        private static Point preview = new Point(70, 5, '█', ConsoleColor.Black);
+        private static Walls previewWalls = new Walls(preview.x - 2, preview.x + 4, preview.y - 2, preview.y + 5, ConsoleColor.DarkGray);
 
         internal static void CreatePlayground()
         {
@@ -32,13 +34,13 @@ namespace Tetris
 
             //Create Walls
             walls.Draw();
+            previewWalls.Draw();
 
             
 
             //SandBox
             brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), RandomBrick());
             nextBrickForm = RandomBrick();
-            Point preview = new Point(75, 5, '█', ConsoleColor.Black);
             nextBrick = new Brick(preview, nextBrickForm);
         }
 
@@ -60,6 +62,8 @@ namespace Tetris
                 body.Draw();
                 brick = new Brick(BrickStartPoint(xLeft, xRight, yTop), nextBrickForm);
                 nextBrickForm = RandomBrick();
+                nextBrick.Clear();
+                nextBrick = new Brick(preview, nextBrickForm);
             }
             if(body.IsHit(Direction.Up, walls) == true)
             {
